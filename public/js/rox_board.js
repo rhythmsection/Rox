@@ -36,8 +36,8 @@
 				this.stones.add(stone);
 			}
 		}
-        console.log(checkForHorizontalMatches(this.stoneGrid, this.height, this.width));
-        console.log(checkForVerticalMatches(this.stoneGrid, this.height, this.width));
+        checkForHorizontalMatches(this.stoneGrid, this.height, this.width);
+        checkForVerticalMatches(this.stoneGrid, this.height, this.width);
     };
     
     function checkForHorizontalMatches(grid, height, width){
@@ -75,17 +75,17 @@
                 }  
             }      
         }
-        console.log(xMatchList);
+        removeMatches(xMatchList);
         if (_.isEmpty(xMatchList)){
             console.log("HORIZONTAL GAME OVER MAN")
         }
     }
     
     function checkForVerticalMatches(grid, height, width){
-    //is this just a switch over b and a?????
         yMatchList = {};
-        for (var a = 0; a < width; a++){
-            for (var b = 0; b < height; b++){
+        //check these variables...
+        for (var a = 0; a < grid.length; a++){
+            for (var b = 0; b < grid[a].length; b++){
                 if (grid[b+1][a]){
                     if (grid[b][a].stoneColor == grid[b+1][a].stoneColor){
                         if (yMatchList[grid[b][a].stoneColor + a]){
@@ -95,27 +95,31 @@
                             yMatchList[grid[b][a].stoneColor + a] = [grid[b][a].position];
                         }
                     }
-                    //this line is broken--not sure why
-                    else if (grid[b-1][a] && grid[b][a].stoneColor == grid[b-1][a].stoneColor){
-                        if (yMatchList[grid[b][a].stoneColor + a]){
-                            yMatchList[grid[b][a].stoneColor + a].push(grid[b][a].position);
+                    else if (grid[b-1]){
+                        if (grid[b][a].stoneColor == grid[b-1][a].stoneColor){
+                             if (yMatchList[grid[b][a].stoneColor + a]){
+                                yMatchList[grid[b][a].stoneColor + a].push(grid[b][a].position);
+                            }
+                            else {
+                                yMatchList[grid[b][a].stoneColor + a] = [grid[b][a].position];
+                            }
                         }
-                        else {
-                            yMatchList[grid[b][a].stoneColor + a] = [grid[b][a].position];
-                        }                        
                     }
                 }
             }
         }
-        console.log(yMatchList);
         if (_.isEmpty(yMatchList)){
             console.log("VERTICAL GAME OVER MAN")
         }
     }
     
             
-    function removeMatches(game){
-        //remove any matches found with checkForMatches
+    function removeMatches(MatchList){
+        for (item in MatchList){
+            if (MatchList[item].length >= 3){
+                console.log(item);
+            }
+        }
     }
     
     function refillBoard(game){
