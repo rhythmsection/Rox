@@ -39,7 +39,9 @@
         checkForHorizontalMatches(this.stoneGrid, this.height, this.width);
         checkForVerticalMatches(this.stoneGrid, this.height, this.width);
     };
-    
+            
+            
+    //eventually make this into one giant awesome function. Rad. 
     function checkForHorizontalMatches(grid, height, width){
         xMatchList = {};
         for (var a = 0; a < grid.length; a++){
@@ -76,9 +78,6 @@
             }      
         }
         console.log(xMatchList);
-        removeMatches(xMatchList);
-        console.log(grid);
-        dropStonesDown(grid);
         if (_.isEmpty(xMatchList)){
             console.log("HORIZONTAL GAME OVER MAN")
         }
@@ -87,9 +86,9 @@
     function checkForVerticalMatches(grid, height, width){
         yMatchList = {};
         //check these variables...
-        for (var a = 0; a < grid.length; a++){
-            for (var b = 0; b < grid[a].length; b++){
-                if (grid[b+1][a]){
+        for (var a = 0; a < grid[a].length; a++){
+            for (var b = 0; b < grid.length; b++){
+                if (grid[b+1]){
                     if (grid[b][a].stoneColor == grid[b+1][a].stoneColor){
                         if (yMatchList[grid[b][a].stoneColor + a]){
                             yMatchList[grid[b][a].stoneColor + a].push(grid[b][a].position);
@@ -109,8 +108,19 @@
                         }
                     }
                 }
+                else if (grid[b-1]){
+                    if (grid[b][a].stoneColor == grid[b-1][a].stoneColor){
+                        if (yMatchList[grid[b][a].stoneColor + a]){
+                                yMatchList[grid[b][a].stoneColor + a].push(grid[b][a]);
+                        }
+                         else {
+                                yMatchList[grid[b][a].stoneColor + a] = [grid[b][a]];
+                        }  
+                    }
+                }
             }
         }
+        console.log(yMatchList);
         if (_.isEmpty(yMatchList)){
             console.log("VERTICAL GAME OVER MAN")
         }
@@ -132,7 +142,7 @@
         for (var a = 0; a < grid.length-1; a++){
             for (var b = 0; b < grid[a].length; b++){
                 if (grid[a+1][b].exists == false){
-                    grid[a+1][b] = grid[a][b];
+                    
                 }
             }
         }
