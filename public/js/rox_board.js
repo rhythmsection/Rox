@@ -48,34 +48,37 @@
                 if (grid[a][b+1]){
                     if (grid[a][b].stoneColor == grid[a][b+1].stoneColor){
                         if (xMatchList[grid[a][b].stoneColor + a]){
-                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b].position);
+                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b]);
                         }
                         else {
-                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b].position];
+                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b]];
                         }
                     }
                     else if (grid[a][b-1] && grid[a][b].stoneColor == grid[a][b-1].stoneColor){
                         if (xMatchList[grid[a][b].stoneColor + a]){
-                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b].position);
+                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b]);
                         }
                         else {
-                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b].position];
+                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b]];
                         }
                     }
                 }
                 else{
                     if (grid[a][b].stoneColor == grid[a][b-1].stoneColor){
                         if (xMatchList[grid[a][b].stoneColor + a]){
-                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b].position);
+                            xMatchList[grid[a][b].stoneColor + a].push(grid[a][b]);
                         }
                         else {
-                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b].position];
+                            xMatchList[grid[a][b].stoneColor + a] = [grid[a][b]];
                         }
                     }
                 }  
             }      
         }
+        console.log(xMatchList);
         removeMatches(xMatchList);
+        console.log(grid);
+        dropStonesDown(grid);
         if (_.isEmpty(xMatchList)){
             console.log("HORIZONTAL GAME OVER MAN")
         }
@@ -113,17 +116,27 @@
         }
     }
     
-            
+    //TODO: Add bonus for 4+ (geode)        
     function removeMatches(MatchList){
         for (item in MatchList){
             if (MatchList[item].length >= 3){
-                console.log(item);
+                for (var i = 0; i < MatchList[item].length; i++){
+                    MatchList[item][i].destroy()
+                }
             }
         }
     }
     
-    function refillBoard(game){
-        //put stones back in board
+    function dropStonesDown(grid){
+        //check board from top down. if missing on next line down, push stone down. check as many times as there are lines??
+        for (var a = 0; a < grid.length-1; a++){
+            for (var b = 0; b < grid[a].length; b++){
+                if (grid[a+1][b].exists == false){
+                    grid[a+1][b] = grid[a][b];
+                }
+            }
+        }
+                
     }
         
 }).call(this);

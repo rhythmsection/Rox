@@ -51,8 +51,7 @@
                 console.log("select 2 stone " + selectedStone + otherStone); 
                 trySwap(selectedStone, otherStone);
                 selectedStone = null;
-                otherStone = null;
-                
+                otherStone = null;  
             }
             else {
                 selectedStone = null;
@@ -66,6 +65,8 @@
         }
     }
 
+            
+    //Swap stuff needs to be contingent on matchmaking. Update to check and destroy matches if matched.         
     function trySwap(selectedStone, otherStone){
         if (selectedStone.x == otherStone.x || selectedStone.y == otherStone.y){
             if (selectedStone.x - otherStone.x == selectedStone.board.stoneSize){
