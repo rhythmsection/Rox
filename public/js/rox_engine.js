@@ -12,9 +12,10 @@ Functions in this file:
     var Rox = this.Rox = this.Rox || {};        
             
     //substantiates variable "game" --> let's get started!
-    var game = new Phaser.Game(400, 400, Phaser.CANVAS, 'rox-box', {
+    var game = new Phaser.Game(590, 590, Phaser.CANVAS, 'rox-box', {
         preload:    preload,
-        create:     create
+        create:     create,
+        update:     update
     });
         
     function preload(){
@@ -25,11 +26,14 @@ Functions in this file:
     
     function create(){
         game.score = 0;
-        game.board = new Rox.Board(10, 10, 5, 4, 38);
+        game.board = new Rox.Board(10, 10, 15, 15, 38);
         game.board.create(game);
     
     }
-            
+    
+    function update(){
+        game.board.update(game);
+    }
             
 }).call(this);
             

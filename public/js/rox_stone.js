@@ -102,6 +102,10 @@
         otherStone.x = firstX
         otherStone.y = firstY
     }
+            
+    Stone.update = function(game){
+    }
+            
         
             
 }).call(this);
